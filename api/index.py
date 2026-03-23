@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 import json
 import os
-import anthropic
+import openai
 
 class handler(BaseHTTPRequestHandler):
 
@@ -34,12 +34,8 @@ class handler(BaseHTTPRequestHandler):
             env_keys = list(os.environ.keys())
             print(f"[DEBUG] 当前环境变量列表: {env_keys}", flush=True)
 
-            # Try multiple possible API key names
-            api_key = (
-                os.environ.get('ANTHROPIC_API_KEY') or
-                os.environ.get('OPEN_API_KEY') or
-                os.environ.get('OPENAI_API_KEY')
-            )
+            api_key = os.environ.get('OPENAI_API_KEY')
+            base_url = os.environ.get('OPENAI_API_BASE')
 
             if not api_key:
                 error_msg = f'API Key 未配置。检测到的环境变量列表是：{env_keys}'
@@ -52,8 +48,13 @@ class handler(BaseHTTPRequestHandler):
                 return
 
             print(f"[DEBUG] 成功读取到 API Key，前4位: {api_key[:4]}****", flush=True)
+            if base_url:
+                print(f"[DEBUG] 使用自定义 base_url: {base_url}", flush=True)
 
-            client = anthropic.Anthropic(api_key=api_key)
+            client = openai.OpenAI(
+                api_key=api_key,
+                base_url=base_url if base_url else None
+            )
 
             prompt = f"""你是一位顶级战略咨询顾问，拥有麦肯锡、波士顿咨询集团的专业背景。
 请针对以下主题生成一份专业的四维度战略调研报告：
@@ -97,8 +98,8 @@ class handler(BaseHTTPRequestHandler):
 
 请用中文撰写完整报告。"""
 
-            message = client.messages.create(
-                model="claude-sonnet-4-5",
+            response = client.chat.completions.create(
+                model="gpt-4o",
                 max_tokens=4096,
                 messages=[
                     {
@@ -108,7 +109,7 @@ class handler(BaseHTTPRequestHandler):
                 ]
             )
 
-            report_content = message.content[0].text
+            report_content = response.choices[0].message.content
 
             response_data = {
                 'success': True,
@@ -116,10 +117,10 @@ class handler(BaseHTTPRequestHandler):
                 'industry': industry,
                 'region': region,
                 'report': report_content,
-                'model': message.model,
+                'model': response.model,
                 'usage': {
-                    'input_tokens': message.usage.input_tokens,
-                    'output_tokens': message.usage.output_tokens
+                    'input_tokens': response.usage.prompt_tokens,
+                    'output_tokens': response.usage.completion_tokens
                 }
             }
 
@@ -129,21 +130,21 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(response_data, ensure_ascii=False).encode('utf-8'))
 
-        except anthropic.APIConnectionError:
+        except openai.APIConnectionError:
             self.send_response(503)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(json.dumps({'error': 'API 连接失败，请检查网络'}).encode('utf-8'))
 
-        except anthropic.RateLimitError:
+        except openai.RateLimitError:
             self.send_response(429)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(json.dumps({'error': 'API 请求频率超限，请稍后重试'}).encode('utf-8'))
 
-        except anthropic.APIStatusError as e:
+        except openai.APIStatusError as e:
             self.send_response(e.status_code)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
