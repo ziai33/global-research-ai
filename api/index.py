@@ -30,14 +30,28 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({'error': '请提供调研主题'}).encode('utf-8'))
                 return
 
-            api_key = os.environ.get('OPEN_API_KEY')
+            # Log all environment variable keys for debugging
+            env_keys = list(os.environ.keys())
+            print(f"[DEBUG] 当前环境变量列表: {env_keys}", flush=True)
+
+            # Try multiple possible API key names
+            api_key = (
+                os.environ.get('ANTHROPIC_API_KEY') or
+                os.environ.get('OPEN_API_KEY') or
+                os.environ.get('OPENAI_API_KEY')
+            )
+
             if not api_key:
+                error_msg = f'API Key 未配置。检测到的环境变量列表是：{env_keys}'
+                print(f"[DEBUG] {error_msg}", flush=True)
                 self.send_response(500)
                 self.send_header('Content-Type', 'application/json')
                 self.send_header('Access-Control-Allow-Origin', '*')
                 self.end_headers()
-                self.wfile.write(json.dumps({'error': 'API Key 未配置'}).encode('utf-8'))
+                self.wfile.write(json.dumps({'error': error_msg}, ensure_ascii=False).encode('utf-8'))
                 return
+
+            print(f"[DEBUG] 成功读取到 API Key，前4位: {api_key[:4]}****", flush=True)
 
             client = anthropic.Anthropic(api_key=api_key)
 
