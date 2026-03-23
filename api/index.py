@@ -98,7 +98,7 @@ class handler(BaseHTTPRequestHandler):
 请用中文撰写完整报告。"""
 
             response = client.chat.completions.create(
-                model="gpt-4o",
+                model="claude-3-5-sonnet-20240620",
                 max_tokens=4096,
                 messages=[
                     {
