@@ -53,7 +53,7 @@ class handler(BaseHTTPRequestHandler):
 
             client = openai.OpenAI(
                 api_key=api_key,
-                base_url=base_url
+                base_url='https://api.ofox.ai/v1'
             )
 
             prompt = f"""你是一位顶级战略咨询顾问，拥有麦肯锡、波士顿咨询集团的专业背景。
