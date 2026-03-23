@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 import json
 import os
-import openai
+from openai import OpenAI
 
 class handler(BaseHTTPRequestHandler):
 
