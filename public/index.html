@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战略洞察平台 | Strategic Intelligence Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mckinsey-blue: #051C2C;
+            --mckinsey-light-blue: #1F40E6;
+            --mckinsey-accent: #00A9CE;
+            --mckinsey-gray: #F5F5F5;
+            --mckinsey-dark-gray: #333333;
+            --mckinsey-mid-gray: #666666;
+            --mckinsey-border: #E0E0E0;
+            --mckinsey-white: #FFFFFF;
+            --mckinsey-gold: #C8A951;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--mckinsey-white);
+            color: var(--mckinsey-dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--mckinsey-blue);
+            padding: 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo-mark {
+            width: 36px;
+            height: 36px;
+            background: var(--mckinsey-light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        .nav-logo-text {
+            color: var(--mckinsey-white);
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--mckinsey-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--mckinsey-blue) 0%, #0a2d4a 50%, #0d3d6b 100%);
+            padding: 160px 60px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(31, 64, 230, 0.1) 100%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--mckinsey-light-blue), var(--mckinsey-accent), var(--mckinsey-gold));
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(31, 64, 230, 0.3);
+            border: 1px solid rgba(31, 64, 230, 0.5);
+            color: var(--mckinsey-accent);
+            padding: 6px 16px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 300;
+            color: var(--mckinsey-white);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            max-width: 700px;
+        }
+
+        .hero h1 strong {
+            font-weight: 700;
+            color: var(--mckinsey-accent);
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            max-width: 560px;
+            line-height: 1.7;
+            font-family: 'Arial', sans-serif;
+            font-weight: 300;
+            margin-bottom: 50px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 60px;
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--mckinsey-white);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            margin-top: 6px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 60px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--mckinsey-light-blue);
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--mckinsey-blue);
+            line-height: 1.2;
+        }
+
+        .section-title strong {
+            font-weight: 700;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--mckinsey-light-blue);
+            margin-top: 20px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--mckinsey-gray);
+            border-left: 4px solid var(--mckinsey-light-blue);
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--mckinsey-mid-gray);
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .form-input, .form-select {
+            padding: 14px 18px;
+            border: 1px solid var(--mckinsey-border);
+            background: var(--mckinsey-white);
+            font-size: 15px;
+            color: var(--mckinsey-dark-gray);
+            font-family: 'Georgia', serif;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--mckinsey-light-blue);
+            box-shadow: 0 0 0 3px rgba(31, 64, 230, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #AAAAAA;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: var(--mckinsey-blue);
+            color: var(--mckinsey-white);
+            border: none;
+            padding: 18px 50px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .submit-btn:hover {
+            background: var(--mckinsey-light-blue);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        .submit-btn:disabled {
+            background: #AAAAAA;
+            cursor: not-allowed;
+        }
+
+        .submit-btn .btn-arrow {
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover .btn-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Loading State */
+        .loading-overlay {
+            display: none;
+            background: rgba(5, 28, 44, 0.95);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--mckinsey-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--mckinsey-white);
+            font-size: 16px;
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .loading-subtext {
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Report Section */
+        .report-section {
+            display: none;
+        }
+
+        .report-section.active {
+            display: block;
+        }
+
+        .report-header {
+            background: var(--mckinsey-blue);
+            padding: 50px;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--mckinsey-light-blue), var(--mckinsey-accent));
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .report-meta-item {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .report-meta-item span {
+            color: var(--mckinsey-accent);
+        }
+
+        .report-title {
+            font-size: 32px;
+            font-weight: 300;
+            color: var(--mckinsey-white);
+            line-height: 1.3;
+        }
+
+        .report-title strong {
+            font-weight: 700;
+        }
+
+        .report-body {
+            background: var(--mckinsey-white);
+            border: 1px solid var(--mckinsey-border);
+            border-top: none;
+            padding: 60px;
+        }
+
+        .report-content {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--mckinsey-dark-gray);
+        }
+
+        .report-content h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--mckinsey-blue);
+            margin: 40px 0 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--mckinsey-light-blue);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .report-content h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--mckinsey-dark-gray);
+            margin: 28px 0 12px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .report-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--mckinsey-mid-gray);
+            margin: 20px 0 8px;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .report-content p {
+            margin-bottom: 16px;
+        }
+
+        .report-content ul, .report-content ol {
+            margin: 12px 0 20px 24px;
+        }
+
+        .report-content li {
+            margin-bottom: 8px;
+        }
+
+        .report-content strong {
+            color: var(--mckinsey-blue);
+            font-weight: 600;
+        }
+
+        .report-content em {
+            color: var(--mckinsey-mid-gray);
+            font-style: italic;
+        }
+
+        /* Report Actions */
+        .report-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--mckinsey-border);
+        }
+
+        .action-btn {
+            padding: 12px 28px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .action-btn-primary {
+            background: var(--mckinsey-blue);
+            color: white;
+        }
+
+        .action-btn-primary:hover {
+            background: var(--mckinsey-light-blue);
+        }
+
+        .action-btn-secondary {
+            background: transparent;
+            color: var(--mckinsey-blue);
+            border: 1.5px solid var(--mckinsey-blue) !important;
+        }
+
+        .action-btn-secondary:hover {
+            background: var(--mckinsey-gray);
+        }
+
+        /* Four Dimensions Info */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--mckinsey-border);
+            margin-bottom: 60px;
+        }
+
+        .dimension-card {
+            background: var(--mckinsey-white);
+            padding: 36px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.2s;
+        }
+
+        .dimension-card:hover {
+            background: var(--mckinsey-gray);
+        }
+
+        .dimension-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--mckinsey-light-blue);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .dimension-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .dimension-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(31, 64, 230, 0.1);
+            line-height: 1;
+            margin-bottom: 16px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .dimension-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--mckinsey-blue);
+            margin-bottom: 12px;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.3;
+        }
+
+        .dimension-desc {
+            font-size: 13px;
+            color: var(--mckinsey-mid-gray);
+            line-height: 1.6;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            background: #FFF5F5;
+            border-left: 4px solid #E53E3E;
+            padding: 20px 24px;
+            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            color: #C53030;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--mckinsey-blue);
+            padding: 60px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-brand {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .footer-brand-name {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Arial', sans-serif;
+            max-width: 400px;
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; }
+            .hero { padding: 120px 24px 60px; }
+            .hero h1 { font-size: 36px; }
+            .hero-stats { gap: 30px; }
+            .main-content { padding: 50px 24px; }
+            .form-section { padding: 30px 24px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .dimensions-grid { grid-template-columns: 1fr 1fr; }
+            .report-header { padding: 30px 24px; }
+            .report-body { padding: 30px 24px; }
+            footer { padding: 40px 24px; }
+            .footer-content { flex-direction: column; gap: 20px; }
+            .footer-disclaimer { text-align: left; }
+        }
+
+        @media print {
+            nav, .form-section, .dimensions-grid, footer, .report-actions { display: none !important; }
+            .hero { padding: 40px 40px 30px; }
+            .report-section { display: block !important; }
+            .report-body { border: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">
+            <div class="nav-logo-mark">SI</div>
+            <div class="nav-logo-text">Strategic Intelligence</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">洞察报告</a></li>
+            <li><a href="#">行业分析</a></li>
+            <li><a href="#">战略咨询</a></li>
+            <li><a href="#">关于平台</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">AI-Powered Strategic Research</div>
+            <h1>深度战略洞察<br><strong>四维分析框架</strong></h1>
+            <p class="hero-subtitle">
+                运用顶级战略咨询方法论，结合 Claude AI 的深度分析能力，
+                为您生成专业级四维度战略调研报告。
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">4</div>
+                    <div class="hero-stat-label">分析维度</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">60+</div>
+                    <div class="hero-stat-label">行业覆盖</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">AI</div>
+                    <div class="hero-stat-label">智能驱动</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Four Dimensions -->
+        <div class="section-header">
+            <div class="section-tag">Research Framework</div>
+            <h2 class="section-title">四维度<strong>分析框架</strong></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="dimensions-grid">
+            <div class="dimension-card">
+                <div class="dimension-number">01</div>
+                <div class="dimension-title">市场格局与竞争态势</div>
+                <div class="dimension-desc">市场规模、竞争格局、行业壁垒与护城河深度分析</div>
+            </div>
+            <div class="dimension-card">
+                <div class="dimension-number">02</div>
+                <div class="dimension-title">宏观环境与政策驱动</div>
+                <div class="dimension-desc">PEST框架、监管趋势、地缘政治与技术变革影响</div>
+            </div>
+            <div class="dimension-card">
+                <div class="dimension-number">03</div>
+                <div class="dimension-title">价值链与商业模式</div>
+                <div class="dimension-desc">产业价值链结构、商业模式对比与创新机会识别</div>
+            </div>
+            <div class="dimension-card">
+                <div class="dimension-number">04</div>
+                <div class="dimension-title">战略建议与行动路径</div>
+                <div class="dimension-desc">KSF分析、短中长期战略布局与风险预警机制</div>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="section-header">
+            <div class="section-tag">Generate Report</div>
+            <h2 class="section-title">生成<strong>调研报告</strong></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="form-section">
+            <form id="reportForm">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label" for="topic">调研主题 *</label>
+                        <input
+                            type="text"
+                            id="topic"
+                            class="form-input"
+                            placeholder="例如：中国新能源汽车市场的竞争格局与未来趋势"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="industry">行业领域</label>
+                        <select id="industry" class="form-select">
+                            <option value="">请选择行业（可选）</option>
+                            <optgroup label="科技与数字化">
+                                <option value="人工智能与机器学习">人工智能与机器学习</option>
+                                <option value="云计算与SaaS">云计算与SaaS</option>
+                                <option value="半导体与芯片">半导体与芯片</option>
+                                <option value="网络安全">网络安全</option>
+                                <option value="区块链与Web3">区块链与Web3</option>
+                            </optgroup>
+                            <optgroup label="消费与零售">
+                                <option value="电子商务">电子商务</option>
+                                <option value="快消品与零售">快消品与零售</option>
+                                <option value="奢侈品">奢侈品</option>
+                                <option value="餐饮与食品">餐饮与食品</option>
+                            </optgroup>
+                            <optgroup label="工业与制造">
+                                <option value="新能源汽车">新能源汽车</option>
+                                <option value="新能源与储能">新能源与储能</option>
+                                <option value="先进制造">先进制造</option>
+                                <option value="航空航天">航空航天</option>
+                            </optgroup>
+                            <optgroup label="金融与服务">
+                                <option value="金融科技">金融科技</option>
+                                <option value="资产管理">资产管理</option>
+                                <option value="保险">保险</option>
+                                <option value="房地产">房地产</option>
+                            </optgroup>
+                            <optgroup label="医疗与生命科学">
+                                <option value="医疗健康">医疗健康</option>
+                                <option value="生物医药">生物医药</option>
+                                <option value="医疗器械">医疗器械</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="region">地区范围</label>
+                        <select id="region" class="form-select">
+                            <option value="">请选择地区（可选）</option>
+                            <option value="全球">全球</option>
+                            <option value="中国">中国</option>
+                            <option value="亚太地区">亚太地区</option>
+                            <option value="北美">北美</option>
+                            <option value="欧洲">欧洲</option>
+                            <option value="东南亚">东南亚</option>
+                            <option value="中东与非洲">中东与非洲</option>
+                            <option value="拉丁美洲">拉丁美洲</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    生成战略报告
+                    <span class="btn-arrow">→</span>
+                </button>
+
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+        </div>
+
+        <!-- Report Section -->
+        <div class="report-section" id="reportSection">
+            <div class="report-header">
+                <div class="report-meta">
+                    <div class="report-meta-item">类型：<span>四维度战略调研报告</span></div>
+                    <div class="report-meta-item">生成时间：<span id="reportTime"></span></div>
+                    <div class="report-meta-item">行业：<span id="reportIndustry">综合</span></div>
+                    <div class="report-meta-item">地区：<span id="reportRegion">全球</span></div>
+                </div>
+                <div class="report-title">
+                    战略洞察报告：<strong id="reportTopic"></strong>
+                </div>
+            </div>
+            <div class="report-body">
+                <div class="report-content" id="reportContent"></div>
+                <div class="report-actions">
+                    <button class="action-btn action-btn-primary" onclick="window.print()">
+                        打印 / 导出 PDF
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="resetForm()">
+                        生成新报告
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在生成战略报告</div>
+        <div class="loading-subtext">AI 正在进行深度分析，通常需要 30-60 秒...</div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-brand-name">Strategic Intelligence Platform</div>
+                <div class="footer-brand-desc">Powered by Claude AI · 战略洞察平台</div>
+            </div>
+            <div class="footer-disclaimer">
+                本平台生成的报告仅供参考，不构成投资建议。
+                所有分析基于 AI 模型生成，请结合实际情况进行专业判断。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Markdown to HTML converter (lightweight)
+        function markdownToHtml(text) {
+            return text
+                // Headers
+                .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h2>$1</h2>')
+                // Bold
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                // Italic
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                // Unordered lists
+                .replace(/^\- (.*$)/gim, '<li>$1</li>')
+                .replace(/^• (.*$)/gim, '<li>$1</li>')
+                // Ordered lists
+                .replace(/^\d+\. (.*$)/gim, '<li>$1</li>')
+                // Wrap consecutive li items in ul
+                .replace(/(<li>.*<\/li>\n?)+/g, function(match) {
+                    return '<ul>' + match + '</ul>';
+                })
+                // Paragraphs
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/^(?!<[hul])/gm, '')
+                // Clean up
+                .replace(/<p><\/p>/g, '')
+                .replace(/<p>(<[hul])/g, '$1')
+                .replace(/(<\/[hul][^>]*>)<\/p>/g, '$1');
+        }
+
+        function formatMarkdown(text) {
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+
+                if (line.startsWith('#### ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<h4>${line.substring(5)}</h4>`;
+                } else if (line.startsWith('### ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<h3>${line.substring(4)}</h3>`;
+                } else if (line.startsWith('## ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<h2>${line.substring(3)}</h2>`;
+                } else if (line.startsWith('# ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<h2>${line.substring(2)}</h2>`;
+                } else if (line.startsWith('- ') || line.startsWith('• ')) {
+                    if (!inList) { html += '<ul>'; inList = true; }
+                    const content = line.startsWith('- ') ? line.substring(2) : line.substring(2);
+                    html += `<li>${formatInline(content)}</li>`;
+                } else if (/^\d+\. /.test(line)) {
+                    if (!inList) { html += '<ul>'; inList = true; }
+                    html += `<li>${formatInline(line.replace(/^\d+\. /, ''))}</li>`;
+                } else if (line.trim() === '') {
+                    if (inList) { html += '</ul>'; inList = false; }
+                } else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    if (line.trim()) {
+                        html += `<p>${formatInline(line)}</p>`;
+                    }
+                }
+            }
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function formatInline(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+
+        // Form submission
+        document.getElementById('reportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const topic = document.getElementById('topic').value.trim();
+            const industry = document.getElementById('industry').value;
+            const region = document.getElementById('region').value;
+
+            if (!topic) return;
+
+            // Show loading
+            document.getElementById('loadingOverlay').classList.add('active');
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('errorMessage').classList.remove('active');
+            document.getElementById('reportSection').classList.remove('active');
+
+            try {
+                const response = await fetch('/api/index', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ topic, industry, region })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || '报告生成失败，请重试');
+                }
+
+                // Populate report
+                const now = new Date();
+                document.getElementById('reportTime').textContent =
+                    now.toLocaleDateString('zh-CN') + ' ' + now.toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
+                document.getElementById('reportTopic').textContent = data.topic;
+                document.getElementById('reportIndustry').textContent = data.industry || '综合';
+                document.getElementById('reportRegion').textContent = data.region || '全球';
+                document.getElementById('reportContent').innerHTML = formatMarkdown(data.report);
+
+                // Show report
+                document.getElementById('reportSection').classList.add('active');
+
+                // Scroll to report
+                setTimeout(() => {
+                    document.getElementById('reportSection').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
+
+            } catch (error) {
+                const errorEl = document.getElementById('errorMessage');
+                errorEl.textContent = '错误：' + error.message;
+                errorEl.classList.add('active');
+            } finally {
+                document.getElementById('loadingOverlay').classList.remove('active');
+                document.getElementById('submitBtn').disabled = false;
+            }
+        });
+
+        function resetForm() {
+            document.getElementById('reportSection').classList.remove('active');
+            document.getElementById('topic').value = '';
+            document.getElementById('industry').value = '';
+            document.getElementById('region').value = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
