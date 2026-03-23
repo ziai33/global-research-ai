@@ -135,7 +135,7 @@ class handler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
-            self.wfile.write(json.dumps({'error': 'API 连接失败，请检查网络'}).encode('utf-8'))
+            self.wfile.write(json.dumps({'error': f'连接失败原因: {str(e)}'}).encode('utf-8'))
 
         except openai.RateLimitError:
             self.send_response(429)
