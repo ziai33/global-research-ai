@@ -30,7 +30,7 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({'error': '请提供调研主题'}).encode('utf-8'))
                 return
 
-            api_key = os.environ.get('ANTHROPIC_API_KEY')
+            api_key = os.environ.get('OPEN_API_KEY')
             if not api_key:
                 self.send_response(500)
                 self.send_header('Content-Type', 'application/json')
