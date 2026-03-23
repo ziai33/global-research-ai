@@ -52,7 +52,7 @@ class handler(BaseHTTPRequestHandler):
             print(f"[DEBUG] 使用 base_url: {base_url}", flush=True)
 
             client = openai.OpenAI(
-                api_key=api_key,
+                api_key='sk-of-sYpNFVAtkFCMztuRykwZRGKJbVGPsmYMnVSNCdcztcXhZiauECeBYXUosTsQcVCU',
                 base_url='https://api.ofox.ai/v1'
             )
 
