@@ -1,4 +1,5 @@
 import openai
+import openai
 from http.server import BaseHTTPRequestHandler
 import json
 import os
@@ -99,7 +100,7 @@ class handler(BaseHTTPRequestHandler):
 请用中文撰写完整报告。"""
 
             response = client.chat.completions.create(
-                model="claude-3-5-sonnet",
+                model="gpt-4o",
                 max_tokens=4096,
                 messages=[
                     {
