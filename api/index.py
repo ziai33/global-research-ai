@@ -37,7 +37,7 @@ class handler(BaseHTTPRequestHandler):
             print(f"[DEBUG] 当前环境变量列表: {env_keys}", flush=True)
 
             api_key = os.environ.get('OPENAI_API_KEY')
-            base_url = os.environ.get('OPENAI_API_BASE', 'https://api.ofox.ai/v1').rstrip('/')
+            base_url = os.environ.get('OPENAI_API_BASE', 'https://api.ofox.ai').rstrip('/')
 
             if not api_key:
                 error_msg = f'API Key 未配置。检测到的环境变量列表是：{env_keys}'
@@ -54,7 +54,7 @@ class handler(BaseHTTPRequestHandler):
 
             client = openai.OpenAI(
                 api_key='sk-of-sYpNFVAtkFCMztuRykwZRGKJbVGPsmYMnVSNCdcztcXhZiauECeBYXUosTsQcVCU',
-                base_url='https://api.ofox.ai/v1'
+                base_url='https://api.ofox.ai'
             )
 
             prompt = f"""你是一位顶级战略咨询顾问，拥有麦肯锡、波士顿咨询集团的专业背景。
