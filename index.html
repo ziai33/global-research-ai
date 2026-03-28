@@ -1,0 +1,26 @@
+// 这一段代码是前端的“心脏”，负责发送指令和接收报告
+async function generateReport() {
+    const topic = document.getElementById('topic').value;
+    const resultDiv = document.getElementById('report-container'); // 确保你的 HTML 里有这个 ID
+    
+    resultDiv.innerHTML = "正在生成报告，请稍候...";
+
+    try {
+        const response = await fetch('/api/generate-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ topic: topic })
+        });
+
+        // 核心检查：如果返回的不是 JSON（即你看到的 <!doctype），这里会抓到它
+        if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) {
+            const errorText = await response.text();
+            throw new Error("后端路径未对齐或部署失败。Vercel 返回了 HTML 网页而非 JSON。");
+        }
+
+        const data = await response.json();
+        resultDiv.innerText = data.report; // 把报告塞进网页
+    } catch (error) {
+        resultDiv.innerHTML = "<span style='color:red'>生成失败: " + error.message + "</span>";
+    }
+}
