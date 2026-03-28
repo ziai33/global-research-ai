@@ -1,26 +1,40 @@
-// 这一段代码是前端的“心脏”，负责发送指令和接收报告
-async function generateReport() {
-    const topic = document.getElementById('topic').value;
-    const resultDiv = document.getElementById('report-container'); // 确保你的 HTML 里有这个 ID
-    
-    resultDiv.innerHTML = "正在生成报告，请稍候...";
+<!DOCTYPE html>
+<html>
+<head><title>战略调研报告生成器</title><meta charset="UTF-8"></head>
+<body style="padding:50px; font-family:sans-serif;">
+    <h2>战略调研报告生成器</h2>
+    <input type="text" id="topic" placeholder="输入调研主题" style="width:300px; padding:10px;">
+    <button onclick="generate()" style="padding:10px 20px; background:blue; color:white; border:none; cursor:pointer;">生成报告</button>
+    <div id="output" style="margin-top:20px; border:1px solid #ccc; padding:20px; min-height:100px; white-space:pre-wrap;">报告将在这里显示...</div>
 
-    try {
-        const response = await fetch('/api/generate-report', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ topic: topic })
-        });
+    <script>
+    async function generate() {
+        const topic = document.getElementById('topic').value;
+        const out = document.getElementById('output');
+        if(!topic) return alert('请输入主题');
+        out.innerHTML = "正在努力生成中，请耐心等待...";
 
-        // 核心检查：如果返回的不是 JSON（即你看到的 <!doctype），这里会抓到它
-        if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) {
-            const errorText = await response.text();
-            throw new Error("后端路径未对齐或部署失败。Vercel 返回了 HTML 网页而非 JSON。");
+        try {
+            // 关键：必须带上 /api/
+            const res = await fetch('/api/generate-report', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({topic: topic})
+            });
+            
+            const contentType = res.headers.get('content-type');
+            if(!contentType || !contentType.includes('application/json')) {
+                const text = await res.text();
+                out.innerHTML = "<span style='color:red'>错误：服务器返回了网页而非数据。这说明 Vercel 路由配置还没生效。详情：" + text.slice(0,100) + "</span>";
+                return;
+            }
+
+            const data = await res.json();
+            out.innerText = data.report || data.error;
+        } catch(e) {
+            out.innerHTML = "<span style='color:red'>连接失败：" + e.message + "</span>";
         }
-
-        const data = await response.json();
-        resultDiv.innerText = data.report; // 把报告塞进网页
-    } catch (error) {
-        resultDiv.innerHTML = "<span style='color:red'>生成失败: " + error.message + "</span>";
     }
-}
+    </script>
+</body>
+</html>
